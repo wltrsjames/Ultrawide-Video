@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var isOn = "";
+    var isOn = -1;
      chrome.storage.local.get("extensionIsEnabled",function (results){
             isOn = results.extensionIsEnabled;
             if(isOn == true) {

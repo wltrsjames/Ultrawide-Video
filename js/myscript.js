@@ -1,7 +1,29 @@
 $(document).ready(function() {
 
+    //global variables
     var isEnabled = -1;
     var timer = -1;
+
+    //Create class to add webclasses to
+    function CssClasses() {
+        this.webClasses = {
+            youtubeClass: ".video-stream.html5-main-video",
+            netflixClass: ".player-video-wrapper div video"    
+        }; 
+    }
+
+    //instantiate class
+    var classes = new CssClasses();
+
+    //add, add/remove class functionality to Class
+    CssClasses.prototype.add = function() {
+        $(classes.webClasses.youtubeClass).addClass("youtubeExtraClass");
+        $(classes.webClasses.netflixClass).addClass("extraClass");
+    };
+    CssClasses.prototype.remove = function() {
+        $(classes.webClasses.youtubeClass).removeClass("youtubeExtraClass");
+        $(classes.webClasses.netflixClass).removeClass("extraClass");
+    };
 
     //Check if url is Youtube
     function youtubeCheck() {
@@ -12,44 +34,7 @@ $(document).ready(function() {
         }
     }
 
-    //add and remove class functionality
-    function Class() {
-        this.webClasses = {
-            youtubeClass: ".video-stream.html5-main-video",
-            netflixClass: ".player-video-wrapper div video"    
-        }; 
-    }
-
-    var classes = new Class();
-
-    Class.prototype.add = function() {
-        $(classes.webClasses.youtubeClass).addClass("youtubeExtraClass");
-        $(classes.webClasses.netflixClass).addClass("extraClass");
-    };
-    Class.prototype.remove = function() {
-        $(classes.webClasses.youtubeClass).removeClass("youtubeExtraClass");
-        $(classes.webClasses.netflixClass).removeClass("extraClass");
-    };
-
-    //Get current 'enabled' state from chrome
-    function getData() {
-        chrome.storage.local.get("extensionIsEnabled",function (status){
-            isEnabled = status.extensionIsEnabled;
-            initKeyboardEvent();
-            initOnchangeEvent();
-            if(youtubeCheck()) {
-                forceYoutubeDefault(isEnabled);
-            }else{
-                if(isEnabled === true) {
-                    classes.add();
-                }else{
-                    classes.remove();
-                }
-            }
-        });
-    }
-
-    //Kotkey functionality
+    //Kotkey event functionality
     function initKeyboardEvent() {
         $(document).on('keydown', null, 'alt+ctrl+c',function(event) {
             console.log(event);
@@ -65,40 +50,16 @@ $(document).ready(function() {
         });
     }
 
-    //Listen for 'enabled' state change
-    function initOnchangeEvent() {
-        chrome.storage.onChanged.addListener(function(changes, areaName){
-            var isNowEnabled = changes.extensionIsEnabled.newValue;
-            if(isNowEnabled === true) {
-                if(youtubeCheck()) {
-                    forceYoutubeDefault(isNowEnabled);
+    //set or delete youtube timer
+    function setYoutubeTimer(isNowEnabled) {
+        if(isNowEnabled) {
+            timer = setInterval(function(){
+                if (document.webkitCurrentFullScreenElement != null) {
+                    classes.add();
                 }else{
-                    classes.add();    
+                    classes.remove();   
                 }
-            }else{
-                if(youtubeCheck()) {
-                    forceYoutubeDefault(isNowEnabled);
-                }else{
-                    classes.remove();    
-                }
-            }
-        });
-    }
-
-
-    function intervalSet() {
-        return setInterval(function(){
-            if (document.webkitCurrentFullScreenElement != null) {
-                classes.add();
-            }else{
-                classes.remove();   
-            }
-        }, 100);
-    }
-
-    function forceYoutubeDefault(isYoutubeEnabled) {
-        if(isYoutubeEnabled) {
-            timer = intervalSet();
+            }, 100);
         }else{
             clearInterval(timer);   
             classes.remove();
@@ -106,5 +67,42 @@ $(document).ready(function() {
 
     }
 
-    getData();
+    //Listen for 'enabled' state change
+    function initOnchangeEvent() {
+        chrome.storage.onChanged.addListener(function(changes){
+            var isNowEnabled = changes.extensionIsEnabled.newValue;
+            if(isNowEnabled === true) {
+                if(youtubeCheck()) {
+                    setYoutubeTimer(isNowEnabled);
+                }else{
+                    classes.add();    
+                }
+            }else{
+                if(youtubeCheck()) {
+                    setYoutubeTimer(isNowEnabled);
+                }else{
+                    classes.remove();    
+                }
+            }
+        });
+    }
+
+    //Get current 'enabled' state from chrome
+    (function initData() {
+        chrome.storage.local.get("extensionIsEnabled",function (status){
+            isEnabled = status.extensionIsEnabled;
+            initKeyboardEvent();
+            initOnchangeEvent();
+            if(youtubeCheck()) {
+                setYoutubeTimer(isEnabled);
+            }else{
+                if(isEnabled === true) {
+                    classes.add();
+                }else{
+                    classes.remove();
+                }
+            }
+        });
+    })();
+
 });
