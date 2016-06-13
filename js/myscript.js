@@ -1,9 +1,5 @@
 $(document).ready(function() {
 
-    var webClasses = {
-        youtubeClass: ".video-stream.html5-main-video",
-        netflixClass: ".player-video-wrapper div video"    
-    }; 
     var isEnabled = -1;
     var timer = -1;
 
@@ -18,18 +14,22 @@ $(document).ready(function() {
 
     //add and remove class functionality
     function Class() {
-        this.add = function() {
-            $(webClasses.youtubeClass).addClass("youtubeExtraClass");
-            $(webClasses.netflixClass).addClass("extraClass");
-        };
-        this.remove = function() {
-            $(webClasses.youtubeClass).removeClass("youtubeExtraClass");
-            $(webClasses.netflixClass).removeClass("extraClass");
-        };
+        this.webClasses = {
+            youtubeClass: ".video-stream.html5-main-video",
+            netflixClass: ".player-video-wrapper div video"    
+        }; 
     }
-    
+
     var classes = new Class();
 
+    Class.prototype.add = function() {
+        $(classes.webClasses.youtubeClass).addClass("youtubeExtraClass");
+        $(classes.webClasses.netflixClass).addClass("extraClass");
+    };
+    Class.prototype.remove = function() {
+        $(classes.webClasses.youtubeClass).removeClass("youtubeExtraClass");
+        $(classes.webClasses.netflixClass).removeClass("extraClass");
+    };
 
     //Get current 'enabled' state from chrome
     function getData() {
