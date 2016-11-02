@@ -6,10 +6,11 @@ $(document).ready(function() {
 
     //Create class to add webclasses to
     function CssClasses() {
-        this.webClasses = {
-            youtubeClass: ".video-stream.html5-main-video",
-            netflixClass: ".player-video-wrapper div video"    
-        }; 
+        this.webClasses = [
+            { selector: ".video-stream.html5-main-video", className: "youtubeExtraClass" }, // YT
+            { selector: ".player-video-wrapper div video", className: "extraClass" }, // Netflix
+            { selector: "#vid_html5_api", className: "extraClass" } // HBO GO
+        ];
     }
 
     //instantiate class
@@ -17,12 +18,14 @@ $(document).ready(function() {
 
     //add, add/remove class functionality to Class
     CssClasses.prototype.add = function() {
-        $(classes.webClasses.youtubeClass).addClass("youtubeExtraClass");
-        $(classes.webClasses.netflixClass).addClass("extraClass");
+       classes.webClasses.map((player) => {
+           $(player.selector).addClass(player.className);
+       })
     };
     CssClasses.prototype.remove = function() {
-        $(classes.webClasses.youtubeClass).removeClass("youtubeExtraClass");
-        $(classes.webClasses.netflixClass).removeClass("extraClass");
+       classes.webClasses.map((player) => {
+           $(player.selector).removeClass(player.className);
+       })
     };
 
     //Check if url is Youtube
@@ -57,11 +60,11 @@ $(document).ready(function() {
                 if (document.webkitCurrentFullScreenElement != null) {
                     classes.add();
                 }else{
-                    classes.remove();   
+                    classes.remove();
                 }
             }, 100);
         }else{
-            clearInterval(timer);   
+            clearInterval(timer);
             classes.remove();
         }
 
@@ -75,13 +78,13 @@ $(document).ready(function() {
                 if(youtubeCheck()) {
                     setYoutubeTimer(isNowEnabled);
                 }else{
-                    classes.add();    
+                    classes.add();
                 }
             }else{
                 if(youtubeCheck()) {
                     setYoutubeTimer(isNowEnabled);
                 }else{
-                    classes.remove();    
+                    classes.remove();
                 }
             }
         });
