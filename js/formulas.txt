@@ -1,0 +1,21 @@
+2560 / 1920 = 1.3333*
+
+var width = screen.width;
+var height = screen.height;
+
+var scale = width / 1920   <----- scale formula
+
+if width < 1920 do nothing
+
+-webkit-transform: scaleX(scale); 
+-moz-transform: scaleX(scale); ////Firefox!
+
+stretch = {
+-webkit-transform: scaleX(scale); 
+-moz-transform: scaleX(scale); ////Firefox!
+}
+
+crop = {
+-webkit-transform: scale(scale); 
+-moz-transform: scale(scale)
+}

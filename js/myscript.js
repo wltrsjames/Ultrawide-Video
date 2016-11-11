@@ -8,8 +8,9 @@ $(document).ready(function() {
     function CssClasses() {
         this.webClasses = [
             { selector: ".video-stream.html5-main-video", className: "youtubeExtraClass" }, // YT
-            { selector: ".player-video-wrapper div video", className: "extraClass" }, // Netflix
-            { selector: "#vid_html5_api", className: "extraClass" } // HBO GO
+            { selector: ".video-container div video", className: "extraClass" }, // Netflix
+            { selector: "#vid_html5_api", className: "extraClass" }, // HBO GO
+            { selector: ".rendererContainer video", className: "extraClass" } // Prime
         ];
     }
 
