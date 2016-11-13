@@ -1,3 +1,4 @@
+/*
 .youtubeExtraClass {
     height: 133.9%!important;
     width: 100%!important;
@@ -14,5 +15,16 @@
     left: 0%!important;
     top: 0%!important;
     position:absolute!important;
-/*    transform: translateY(-50%)!important;*/
+    transform: translateY(-50%)!important;
+}
+*/
+
+
+.youtubeExtraClass {
+    -webkit-transform: scaleX(1.43)!important; 
+}
+
+
+.extraClass {
+    -webkit-transform: scaleX(1.33)!important; 
 }
