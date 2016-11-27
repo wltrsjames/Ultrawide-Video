@@ -16,3 +16,23 @@
     position:absolute!important;
 /*    transform: translateY(-50%)!important;*/
 }
+
+
+.youseeExtraClass {
+  height: 133.9%!important;
+  width: 100%!important;
+  left: 0%!important;
+  top: 0%!important;
+  position:absolute!important;
+  transform: translateY(-12.5%)!important;
+}
+
+
+.drExtraClass {
+  height: 136.9%!important;
+  width: 100%!important;
+  left: 0%!important;
+  top: 0%!important;
+  position: absolute!important;
+  transform: translateY(-12.5%)!important;
+}
