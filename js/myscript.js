@@ -11,7 +11,8 @@ $(document).ready(function() {
             { selector: ".video-container div video", className: "extraClass" }, // Netflix
             { selector: "#vid_html5_api", className: "extraClass" }, // HBO GO
             { selector: ".rendererContainer video", className: "extraClass" }, // Prime
-            { selector: "#playerwrapper", className: "youseeExtraClass" } // Yousee
+            { selector: "#playerwrapper", className: "youseeExtraClass" }, // Yousee
+            { selector: "#drtv-player", className: "drExtraClass" } // DR TV
         ];
     }
 
