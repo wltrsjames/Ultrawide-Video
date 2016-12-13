@@ -19,3 +19,9 @@ crop = {
 -webkit-transform: scale(scale); 
 -moz-transform: scale(scale)
 }
+
+tests
+2560/1080= 2.3703
+3440/1440= 2.38888
+1920/1080 = 1.77777
+2560/1400 = 1.8285

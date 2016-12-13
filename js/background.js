@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             type: "basic",
             iconUrl: "images/icon.png",
             title: "Ultrawide Video updated",
-            message: "Update log: Ultrawide Video is back! As of version "+version+" HBO GO has been added as a supported media player.",
+            message: "Update log: Version "+version+" Aspect Ratio mode has been added, should work with more players and reliability tweaks",
         }, function(updateNotificationId) {
             chrome.notifications.onClicked.addListener(function(notificationId) {
                 if (notificationId === updateNotificationId) {
@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             });
         });
     }
-    chrome.storage.local.set({"extensionIsEnabled":false},function (){
+    chrome.storage.local.set({"extensionMode":0},function (){
         //console.log("Storage Succesful");
     }); 
 });

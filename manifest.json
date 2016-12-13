@@ -14,8 +14,7 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["Jquery/jquery-2.1.3.min.js","Jquery/jquery.hotkeys.js","Jquery/jquery.fullscreen.js","js/myscript.js"],
-            "css": ["css/style.css"]
+            "js": ["Jquery/jquery-2.1.3.min.js","Jquery/jquery.hotkeys.js","Jquery/jquery.fullscreen.js","js/UltraWide.js"]
         }
     ],
     "background": {
