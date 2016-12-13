@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             type: "basic",
             iconUrl: "images/icon.png",
             title: "Ultrawide Video updated",
-            message: "Update log: Version "+version+" HOTFIX: please let me know if this has fixed things, thanks for your patience :)",
+            message: "Update log: Version "+version+" HOTFIX: please let me know if this has fixed things, Permissions to haven't been changed I have simply added chrome alert notifications, thanks for your patience :)",
         }, function(updateNotificationId) {
             chrome.notifications.onClicked.addListener(function(notificationId) {
                 if (notificationId === updateNotificationId) {
