@@ -29,7 +29,7 @@ $(document).ready(function() {
 
         this.fullscreenSet = function(cb) {
             setTimeout(function() {
-                if (window.screenTop && window.screenY) {
+                if (document.webkitCurrentFullScreenElement != null) {
                     ultraWide.fullscreen = true;
                 }else{
                     ultraWide.fullscreen = false;
@@ -77,8 +77,8 @@ $(document).ready(function() {
                     if(ultraWide.fullscreen && ultraWide.scale > 1) {
                         $("video").addClass("extraClassAspect");
                     }else{
-                        $("video").removeClass("extraClassAspect");
                         $("video").removeClass("extraClassCrop");
+                        $("video").removeClass("extraClassAspect");
                     }
                     break;
                 case 2:
@@ -140,8 +140,7 @@ var initEvents = function(ultraWide) {
 
     chrome.storage.onChanged.addListener(function(changes){
         ultraWide.setMode(changes.extensionMode.newValue);
-        console.log(ultraWide.mode);
         ultraWide.classCheck();
-
+        console.log(ultraWide.mode);
     });
 };
