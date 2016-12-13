@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             type: "basic",
             iconUrl: "images/icon.png",
             title: "Ultrawide Video updated",
-            message: "Update log: Version "+version+" Aspect Ratio mode has been added, should work with more players and reliability tweaks",
+            message: "Update log: Version "+version+" Aspect Ratio mode has been added, should work with more players and reliability tweaks, debug mode",
         }, function(updateNotificationId) {
             chrome.notifications.onClicked.addListener(function(notificationId) {
                 if (notificationId === updateNotificationId) {

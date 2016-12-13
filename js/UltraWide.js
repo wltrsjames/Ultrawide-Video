@@ -35,6 +35,13 @@ $(document).ready(function() {
                     ultraWide.fullscreen = false;
                 }   
                 ultraWide.classCheck();
+
+                var debug = {
+                    scale: ultraWide.scale,
+                    fullscreen: ultraWide.fullscreen,
+                    mode: ultraWide.mode
+                }
+                console.log(debug);
             }, 100);
         };
 
