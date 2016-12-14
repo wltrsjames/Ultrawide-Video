@@ -41,7 +41,6 @@ $(document).ready(function() {
                     fullscreen: ultraWide.fullscreen,
                     mode: ultraWide.mode
                 }
-                console.log(debug);
             }, 100);
         };
 
@@ -106,7 +105,6 @@ $(document).ready(function() {
 
 
     initEvents(ultraWide);
-    console.log(ultraWide.scale, ultraWide.fullscreen);
 
 
 });
@@ -141,6 +139,5 @@ var initEvents = function(ultraWide) {
     chrome.storage.onChanged.addListener(function(changes){
         ultraWide.setMode(changes.extensionMode.newValue);
         ultraWide.classCheck();
-        console.log(ultraWide.mode);
     });
 };
