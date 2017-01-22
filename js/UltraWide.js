@@ -26,6 +26,10 @@ UltraWide.prototype.classCheck = function() {
             $("video").removeClass("extraClassAspect");
             $("video").addClass("extraClassCrop");
             break;
+        case 4:
+            $("video").addClass("extraClassAspect");
+            $("video").removeClass("extraClassCrop");
+            break;
     }
 
 };
@@ -50,7 +54,7 @@ function UltraWide()  {
             var scale = aspect / 1.77;
             this.scale = Math.round(scale * 100) / 100;
 
-        }else if(this.mode == 3) {
+        }else if(this.mode == 3 || this.mode == 4) {
             this.scale = 1.33;
         }else {
             this.scale = 1;

@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             type: "basic",
             iconUrl: "images/icon.png",
             title: "Ultrawide Video updated",
-            message: "Update log: Version "+version+" HOTFIX: please let me know if this has fixed things, Permissions to haven't been changed I have simply added chrome alert notifications, thanks for your patience :)",
+            message: "Update log: Version "+version+" added FORCE modes for 4:3 videos on 16:9 screens; Removed console logs; multiscreen stability",
         }, function(updateNotificationId) {
             chrome.notifications.onClicked.addListener(function(notificationId) {
                 if (notificationId === updateNotificationId) {
@@ -18,6 +18,5 @@ chrome.runtime.onInstalled.addListener(function (details) {
         });
     }
     chrome.storage.local.set({"extensionMode":0},function (){
-        //console.log("Storage Succesful");
     }); 
 });

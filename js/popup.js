@@ -14,14 +14,18 @@ $(document).ready(function() {
                 $("#crop").prop("checked", true);
                 break;
             case 3:
-                $("#force").prop("checked", true);
+                $("#forceCrop").prop("checked", true);
+                break;
+            case 4:
+                $("#forceAspect").prop("checked", true);
                 break;
         }
     });
     $("#off").click(function() {
         $("#aspect").prop("checked", false);
         $("#crop").prop("checked", false);
-        $("#force").prop("checked", false);
+        $("#forceCrop").prop("checked", false);
+        $("#forceAspect").prop("checked", false);
         chrome.storage.local.set({"extensionMode":0},function (){
         });
     });
@@ -29,7 +33,8 @@ $(document).ready(function() {
     $("#aspect").click(function() {
         $("#off").prop("checked", false);
         $("#crop").prop("checked", false);
-        $("#force").prop("checked", false);
+        $("#forceCrop").prop("checked", false);
+        $("#forceAspect").prop("checked", false);
         chrome.storage.local.set({"extensionMode":1},function (){
         });
     });
@@ -37,15 +42,25 @@ $(document).ready(function() {
     $("#crop").click(function() {
         $("#off").prop("checked", false);
         $("#aspect").prop("checked", false);
-        $("#force").prop("checked", false);
+        $("#forceCrop").prop("checked", false);
+        $("#forceAspect").prop("checked", false);
         chrome.storage.local.set({"extensionMode":2},function (){
         });
     });
-    $("#force").click(function() {
+    $("#forceCrop").click(function() {
         $("#off").prop("checked", false);
         $("#aspect").prop("checked", false);
         $("#crop").prop("checked", false);
+        $("#forceAspect").prop("checked", false);
         chrome.storage.local.set({"extensionMode":3},function (){
+        });
+    });
+    $("#forceAspect").click(function() {
+        $("#off").prop("checked", false);
+        $("#aspect").prop("checked", false);
+        $("#crop").prop("checked", false);
+        $("#forceCrop").prop("checked", false);
+        chrome.storage.local.set({"extensionMode":4},function (){
         });
     });
 });
