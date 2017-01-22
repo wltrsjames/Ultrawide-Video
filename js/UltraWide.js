@@ -41,10 +41,12 @@ $(document).ready(function() {
                     fullscreen: ultraWide.fullscreen,
                     mode: ultraWide.mode
                 }
-            }, 100);
+                }, 100);
         };
 
         this.createCSS = function() {
+            $('#extraClass').remove();
+            
             var sheet = document.createElement('style')
             sheet.setAttribute("id", "extraClass");
             sheet.innerHTML = 
@@ -118,6 +120,7 @@ var initEvents = function(ultraWide) {
         //            console.log(target);
         //            target.className += "extraClass";
         //        });
+        ultraWide.createCSS();
         ultraWide.fullscreenSet();
         ultraWide.setScale();
     });
