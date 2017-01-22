@@ -1,112 +1,111 @@
-//page loads
-$(document).ready(function() {
-
-
-    var UltraWide = function()  {
-        this.scale = undefined;
-        this.fullscreen = false;
-        this.mode = 0;
-
-        this.setScale = function() {
-            //get users screen dimensions
-            var width = screen.width;
-            var height = screen.height;
-
-            //get aspet ratio
-            var aspect = width/height;
-
-            //16:9 = 1.77
-
-            if(aspect >= 1.88) {
-                var scale = aspect / 1.77;
-                this.scale = Math.round(scale * 100) / 100;
-
+UltraWide.prototype.classCheck = function() {
+    //    console.log(this.scale, this.fullscreen);
+    switch(this.mode) {
+            // 0: off; 1: aspect; 2: zoom;
+        case 0:
+            $("video").removeClass("extraClassAspect");
+            $("video").removeClass("extraClassCrop");
+            break;
+        case 1:
+            if(this.fullscreen && this.scale > 1) {
+                $("video").addClass("extraClassAspect");
             }else{
-                this.scale = 1;
+                $("video").removeClass("extraClassCrop");
+                $("video").removeClass("extraClassAspect");
             }
-
-        };
-
-        this.fullscreenSet = function(cb) {
-            setTimeout(function() {
-                if (document.webkitCurrentFullScreenElement != null) {
-                    ultraWide.fullscreen = true;
-                }else{
-                    ultraWide.fullscreen = false;
-                }   
-                ultraWide.classCheck();
-
-                var debug = {
-                    scale: ultraWide.scale,
-                    fullscreen: ultraWide.fullscreen,
-                    mode: ultraWide.mode
-                }
-                }, 100);
-        };
-
-        this.createCSS = function() {
-            $('#extraClass').remove();
-            
-            var sheet = document.createElement('style')
-            sheet.setAttribute("id", "extraClass");
-            sheet.innerHTML = 
-                ".extraClassAspect {" +
-                "-webkit-transform: scaleX("+this.scale+")!important;" +
-//                "object-fit: fill!important;" +
-                "}" +
-                ".extraClassCrop {" +
-                "-webkit-transform: scale("+this.scale+")!important;" +
-//                "object-fit: cover!important;" +
-                "}";
-            document.body.appendChild(sheet);  
-        };
-
-        this.setMode = function(mode) {
-            ultraWide.mode = mode;
-            return mode;
-        };
-
-        this.classCheck = function() {
-            //            console.log(ultraWide.scale, ultraWide.fullscreen);
-            switch(ultraWide.mode) {
-                    // 0: off; 1: aspect; 2: zoom;
-                case 0:
-                    $("video").removeClass("extraClassAspect");
-                    $("video").removeClass("extraClassCrop");
-                    break;
-                case 1:
-                    if(ultraWide.fullscreen && ultraWide.scale > 1) {
-                        $("video").addClass("extraClassAspect");
-                    }else{
-                        $("video").removeClass("extraClassCrop");
-                        $("video").removeClass("extraClassAspect");
-                    }
-                    break;
-                case 2:
-                    if(ultraWide.fullscreen && ultraWide.scale > 1) {
-                        $("video").addClass("extraClassCrop");
-                    }else{
-                        $("video").removeClass("extraClassAspect");
-                        $("video").removeClass("extraClassCrop");
-                    }
-                    break;
+            break;
+        case 2:
+            if(this.fullscreen && this.scale > 1) {
+                $("video").addClass("extraClassCrop");
+            }else{
+                $("video").removeClass("extraClassAspect");
+                $("video").removeClass("extraClassCrop");
             }
+            break;
+        case 3:
+            $("video").removeClass("extraClassAspect");
+            $("video").addClass("extraClassCrop");
+            break;
+    }
 
-        };
+};
+
+
+function UltraWide()  {
+    this.scale = undefined;
+    this.fullscreen = false;
+    this.mode = 0;
+
+    this.setScale = function() {
+        //get users screen dimensions
+        var width = screen.width;
+        var height = screen.height;
+
+        //get aspet ratio
+        var aspect = width/height;
+
+        //16:9 = 1.77
+
+        if(aspect >= 1.88) {
+            var scale = aspect / 1.77;
+            this.scale = Math.round(scale * 100) / 100;
+
+        }else if(this.mode == 3) {
+            this.scale = 1.33;
+        }else {
+            this.scale = 1;
+        }
+
     };
 
-    var ultraWide = new UltraWide();
+    this.fullscreenSet = function(cb) {
+        setTimeout((function() {
+            if (document.webkitCurrentFullScreenElement != null) {
+                this.fullscreen = true;
+            }else{
+                this.fullscreen = false;
+            }   
+            this.classCheck();
+        }).bind(this), 100);
+    };
 
-    ultraWide.setScale();
-    ultraWide.fullscreenSet();
-    ultraWide.createCSS();
+    this.createCSS = function() {
+        $('#extraClass').remove();
+
+        var sheet = document.createElement('style')
+        sheet.setAttribute("id", "extraClass");
+        sheet.innerHTML = 
+            ".extraClassAspect {" +
+            "-webkit-transform: scaleX("+this.scale+")!important;" +
+            //                "object-fit: fill!important;" +
+            "}" +
+            ".extraClassCrop {" +
+            "-webkit-transform: scale("+this.scale+")!important;" +
+            //                "object-fit: cover!important;" +
+            "}";
+        document.body.appendChild(sheet);  
+    };
+
+    this.setMode = function(mode) {
+        this.mode = mode;
+        return mode;
+    };
+
+
+};
+
+var ultraWide = new UltraWide();
+
+$(document).ready(function() {
 
     chrome.storage.local.get("extensionMode",function (status){
         ultraWide.setMode(status.extensionMode);
+        ultraWide.setScale();
+        ultraWide.fullscreenSet();
+        ultraWide.createCSS();
+
+        initEvents(ultraWide);
     });
-
-
-    initEvents(ultraWide);
 
 
 });
@@ -114,15 +113,9 @@ $(document).ready(function() {
 var initEvents = function(ultraWide) {
 
     $( window ).resize(function() {
-        //        var iframe = $("iframe").load(function() {
-        //            var doc = this.contentDocument || this.contentWindow.document;
-        //            var target = doc.getElementsByTagName("video");
-        //            console.log(target);
-        //            target.className += "extraClass";
-        //        });
-        ultraWide.createCSS();
-        ultraWide.fullscreenSet();
         ultraWide.setScale();
+        ultraWide.fullscreenSet();
+        ultraWide.createCSS();
     });
 
     $(document).on('keydown', null, 'alt+ctrl+c',function(event) {
@@ -141,6 +134,8 @@ var initEvents = function(ultraWide) {
 
     chrome.storage.onChanged.addListener(function(changes){
         ultraWide.setMode(changes.extensionMode.newValue);
+        ultraWide.setScale();
+        ultraWide.createCSS();
         ultraWide.classCheck();
     });
 };

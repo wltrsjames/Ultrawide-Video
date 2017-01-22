@@ -13,11 +13,15 @@ $(document).ready(function() {
             case 2:
                 $("#crop").prop("checked", true);
                 break;
+            case 3:
+                $("#force").prop("checked", true);
+                break;
         }
     });
     $("#off").click(function() {
         $("#aspect").prop("checked", false);
         $("#crop").prop("checked", false);
+        $("#force").prop("checked", false);
         chrome.storage.local.set({"extensionMode":0},function (){
         });
     });
@@ -25,6 +29,7 @@ $(document).ready(function() {
     $("#aspect").click(function() {
         $("#off").prop("checked", false);
         $("#crop").prop("checked", false);
+        $("#force").prop("checked", false);
         chrome.storage.local.set({"extensionMode":1},function (){
         });
     });
@@ -32,9 +37,18 @@ $(document).ready(function() {
     $("#crop").click(function() {
         $("#off").prop("checked", false);
         $("#aspect").prop("checked", false);
+        $("#force").prop("checked", false);
         chrome.storage.local.set({"extensionMode":2},function (){
         });
     });
+    $("#force").click(function() {
+        $("#off").prop("checked", false);
+        $("#aspect").prop("checked", false);
+        $("#crop").prop("checked", false);
+        chrome.storage.local.set({"extensionMode":3},function (){
+        });
+    });
 });
+
 
 
