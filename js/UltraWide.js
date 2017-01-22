@@ -52,11 +52,11 @@ $(document).ready(function() {
             sheet.innerHTML = 
                 ".extraClassAspect {" +
                 "-webkit-transform: scaleX("+this.scale+")!important;" +
-                "object-fit: fill!important;" +
+//                "object-fit: fill!important;" +
                 "}" +
                 ".extraClassCrop {" +
                 "-webkit-transform: scale("+this.scale+")!important;" +
-                "object-fit: cover!important;" +
+//                "object-fit: cover!important;" +
                 "}";
             document.body.appendChild(sheet);  
         };
