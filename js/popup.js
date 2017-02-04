@@ -1,69 +1,46 @@
 $(document).ready(function() {
     var isOn = -1;
-    chrome.storage.local.get("extensionMode",function (results){
-        var mode = results.extensionMode;
-        switch(mode) {
-                // 0: off; 1: aspect; 2: zoom;
-            case 0:
-                $("#off").prop("checked", true);
-                break;
-            case 1:
-                $("#aspect").prop("checked", true);
-                break;
-            case 2:
-                $("#crop").prop("checked", true);
-                break;
-            case 3:
-                $("#forceCrop").prop("checked", true);
-                break;
-            case 4:
-                $("#forceAspect").prop("checked", true);
-                break;
-        }
-    });
-    $("#off").click(function() {
-        $("#aspect").prop("checked", false);
-        $("#crop").prop("checked", false);
-        $("#forceCrop").prop("checked", false);
-        $("#forceAspect").prop("checked", false);
-        chrome.storage.local.set({"extensionMode":0},function (){
-        });
+    
+    // Map mode names to mode index
+    var modeMap = {
+        disabled: 0,
+        aspect: 1,
+        crop: 2,
+
+        // experimental
+        forceCrop: 3,
+        forceAspect: 4
+    };
+
+    // Get current active mode
+    chrome.storage.local.get('extensionMode', function(results) {
+        var currentMode = Object.keys(modeMap)[results.extensionMode];
+        $('.mode-option').find('#' + currentMode).prop('checked', true);
     });
 
-    $("#aspect").click(function() {
-        $("#off").prop("checked", false);
-        $("#crop").prop("checked", false);
-        $("#forceCrop").prop("checked", false);
-        $("#forceAspect").prop("checked", false);
-        chrome.storage.local.set({"extensionMode":1},function (){
+    // Set active mode
+    $('.mode-option').click(function(e) {
+        chrome.storage.local.set({
+            'extensionMode': modeMap[e.target.id]
         });
     });
-
-    $("#crop").click(function() {
-        $("#off").prop("checked", false);
-        $("#aspect").prop("checked", false);
-        $("#forceCrop").prop("checked", false);
-        $("#forceAspect").prop("checked", false);
-        chrome.storage.local.set({"extensionMode":2},function (){
-        });
+    
+    // Toggle help and about
+    $('.help-show').click(function (e) {
+        e.preventDefault();
+        $('#help').addClass('is-active');
     });
-    $("#forceCrop").click(function() {
-        $("#off").prop("checked", false);
-        $("#aspect").prop("checked", false);
-        $("#crop").prop("checked", false);
-        $("#forceAspect").prop("checked", false);
-        chrome.storage.local.set({"extensionMode":3},function (){
-        });
+    
+    $('.help-close').click(function (e) {
+        e.preventDefault();
+        $('#help').removeClass('is-active');
     });
-    $("#forceAspect").click(function() {
-        $("#off").prop("checked", false);
-        $("#aspect").prop("checked", false);
-        $("#crop").prop("checked", false);
-        $("#forceCrop").prop("checked", false);
-        chrome.storage.local.set({"extensionMode":4},function (){
-        });
-    });
+    
+    // Open attribution links
+     $('.attribution a').click(function() {
+       chrome.tabs.create({
+           url: $(this).attr('href')
+       });
+       return false;
+     });
 });
-
-
-
