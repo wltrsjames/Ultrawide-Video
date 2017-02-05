@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Ultrawide Video</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="../Jquery/jquery-2.1.3.min.js"></script>
+    <script src="../js/popup.js"></script>
+</head>
+
+<body>
+    <header class="clearfix">
+        <img class="logo" src="../images/icon.png" />
+        <h1 class="title">Ultrawide Video</h1>
+    </header>
+
+    <div class="mode-options">
+        <div class="mode-option">
+            <input id="disabled" name="mode" type="radio">
+            <label for="disabled">Disabled</label>
+        </div>
+
+        <div class="mode-option">
+            <input id="aspect" name="mode" type="radio">
+            <label for="aspect">
+                Aspect Ratio
+                <span class="description">Stretch the video to fit the aspect ratio</span>
+            </label>
+        </div>
+
+        <div class="mode-option">
+            <input id="crop" name="mode" type="radio">
+            <label for="crop">
+                Crop
+                <span class="description">Crop the video to fit the aspect ratio while filling the screen</span>
+            </label>
+
+        </div>
+
+        <div class="mode-option">
+            <input id="forceCrop" name="mode" type="radio">
+            <label for="forceCrop">Force crop (experimental)</label>
+        </div>
+
+        <div class="mode-option">
+            <input id="forceAspect" name="mode" type="radio">
+            <label for="forceAspect">Force aspect (experimental)</label>
+        </div>
+    </div>
+
+    <div class="description">
+        <p><strong>Note: </strong>Force modes disregard fullscreen state and screen size. 
+            This feature is designed for watching 4:3 movies on 16:9 displays.</p>
+    </div>
+    
+    <a class="help-show" href="#">help &amp; about</a>
+    
+    <div id="help">
+        <p>Ultrawide video is designed to make viewing videos a more pleasurable experience on 21:9 aspect ratio monitors.</p>
+        <p>You can use the shortcut <strong>ctrl+alt+c</strong> to toggle between modes while viewing a video.</p>
+        
+        <div class="attribution">
+            <p class="description"><strong>By:</strong> <a href="https://github.com/wltrsjames">James Walters</a></p>
+            <p class="description"><strong>Contributors:</strong> <a href="https://github.com/Asvarox">Asvarox</a>, <a href="https://github.com/legotheboss">legotheboss</a>, <a href="https://github.com/steenburgh">steenburgh</a> &amp; <a href="https://github.com/simonmckeon">Simon McKeon</a></p>
+        </div>
+        
+        <a class="help-close" href="#">close</a>
+    </div>
+</body>
+
+</html>
