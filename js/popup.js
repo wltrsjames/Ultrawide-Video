@@ -1,61 +1,91 @@
-$(document).ready(function() {
-    var isOn = -1;
-    chrome.storage.local.get('extensionMode', function(results) {
-        var mode = results.extensionMode;
-        switch (mode) {
-            // 0: off; 1: aspect; 2: zoom;
-            case 0:
-                $('#off').prop('checked', true);
-                break;
-            case 1:
-                $('#aspect').prop('checked', true);
-                break;
-            case 2:
-                $('#crop').prop('checked', true);
-                break;
-            case 3:
-                $('#forceCrop').prop('checked', true);
-                break;
-            case 4:
-                $('#forceAspect').prop('checked', true);
-                break;
-        }
-    });
-    $('#off').click(function() {
-        $('#aspect').prop('checked', false);
-        $('#crop').prop('checked', false);
-        $('#forceCrop').prop('checked', false);
-        $('#forceAspect').prop('checked', false);
-        chrome.storage.local.set({ extensionMode: 0 }, function() {});
-    });
+(function(window, document, undefined, $) {
+    var modes = {
+        OFF: 0,
+        ASPECT: 1,
+        CROP: 2,
+        FORCE_CROP: 3,
+        FORCE_ASPECT: 4,
+    };
 
-    $('#aspect').click(function() {
-        $('#off').prop('checked', false);
-        $('#crop').prop('checked', false);
-        $('#forceCrop').prop('checked', false);
-        $('#forceAspect').prop('checked', false);
-        chrome.storage.local.set({ extensionMode: 1 }, function() {});
-    });
+    $(document).ready(function() {
+        var $off = $('#off');
+        var $aspect = $('#aspect');
+        var $crop = $('#crop');
+        var $forceCrop = $('#forceCrop');
+        var $A = $('#forceAspect');
 
-    $('#crop').click(function() {
-        $('#off').prop('checked', false);
-        $('#aspect').prop('checked', false);
-        $('#forceCrop').prop('checked', false);
-        $('#forceAspect').prop('checked', false);
-        chrome.storage.local.set({ extensionMode: 2 }, function() {});
+        chrome.storage.local.get('extensionMode', function(results) {
+            var mode = results.extensionMode;
+            switch (mode) {
+                case modes.OFF:
+                    $off.prop('checked', true);
+                    break;
+                case modes.ASPECT:
+                    $aspect.prop('checked', true);
+                    break;
+                case modes.CROP:
+                    $crop.prop('checked', true);
+                    break;
+                case modes.FORCE_CROP:
+                    $forceCrop.prop('checked', true);
+                    break;
+                case modes.FORCE_ASPECT:
+                    $forceAspect.prop('checked', true);
+                    break;
+            }
+        });
+
+        $off.click(function() {
+            $aspect.prop('checked', false);
+            $crop.prop('checked', false);
+            $forceCrop.prop('checked', false);
+            $forceAspect.prop('checked', false);
+            chrome.storage.local.set(
+                { extensionMode: modes.OFF },
+                function() {}
+            );
+        });
+
+        $aspect.click(function() {
+            $off.prop('checked', false);
+            $crop.prop('checked', false);
+            $forceCrop.prop('checked', false);
+            $forceAspect.prop('checked', false);
+            chrome.storage.local.set(
+                { extensionMode: modes.ASPECT },
+                function() {}
+            );
+        });
+
+        $crop.click(function() {
+            $off.prop('checked', false);
+            $aspect.prop('checked', false);
+            $forceCrop.prop('checked', false);
+            $forceAspect.prop('checked', false);
+            chrome.storage.local.set(
+                { extensionMode: modes.CROP },
+                function() {}
+            );
+        });
+        $forceCrop.click(function() {
+            $off.prop('checked', false);
+            $aspect.prop('checked', false);
+            $crop.prop('checked', false);
+            $forceAspect.prop('checked', false);
+            chrome.storage.local.set(
+                { extensionMode: modes.FORCE_CROP },
+                function() {}
+            );
+        });
+        $forceAspect.click(function() {
+            $off.prop('checked', false);
+            $aspect.prop('checked', false);
+            $crop.prop('checked', false);
+            $forceCrop.prop('checked', false);
+            chrome.storage.local.set(
+                { extensionMode: modes.FORCE_ASPECT },
+                function() {}
+            );
+        });
     });
-    $('#forceCrop').click(function() {
-        $('#off').prop('checked', false);
-        $('#aspect').prop('checked', false);
-        $('#crop').prop('checked', false);
-        $('#forceAspect').prop('checked', false);
-        chrome.storage.local.set({ extensionMode: 3 }, function() {});
-    });
-    $('#forceAspect').click(function() {
-        $('#off').prop('checked', false);
-        $('#aspect').prop('checked', false);
-        $('#crop').prop('checked', false);
-        $('#forceCrop').prop('checked', false);
-        chrome.storage.local.set({ extensionMode: 4 }, function() {});
-    });
-});
+})(window, document, undefined, $);
