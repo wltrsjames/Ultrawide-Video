@@ -1,7 +1,7 @@
 UltraWide.prototype.classCheck = function() {
-    //    console.log(this.scale, this.fullscreen);
+    //     console.log(this.scale, this.fullscreen);
     switch (this.mode) {
-        // 0: off; 1: aspect; 2: zoom;
+        //  0: off; 1: aspect; 2: zoom;
         case 0:
             $('video').removeClass('extraClassAspect');
             $('video').removeClass('extraClassCrop');
@@ -39,14 +39,14 @@ function UltraWide() {
     this.mode = 0;
 
     this.setScale = function() {
-        //get users screen dimensions
+        // get users screen dimensions
         var width = screen.width;
         var height = screen.height;
 
-        //get aspet ratio
+        // get aspect ratio
         var aspect = width / height;
 
-        //16:9 = 1.77
+        // 16:9 = 1.77
 
         if (aspect >= 1.88) {
             var scale = aspect / 1.77;
@@ -82,13 +82,13 @@ function UltraWide() {
             '-webkit-transform: scaleX(' +
             this.scale +
             ')!important;' +
-            //                "object-fit: fill!important;" +
+            //                 "object-fit: fill!important;" +
             '}' +
             '.extraClassCrop {' +
             '-webkit-transform: scale(' +
             this.scale +
             ')!important;' +
-            //                "object-fit: cover!important;" +
+            //                 "object-fit: cover!important;" +
             '}';
         document.body.appendChild(sheet);
     };
@@ -114,9 +114,11 @@ $(document).ready(function() {
 
 var initEvents = function(ultraWide) {
     $(window).resize(function() {
-        ultraWide.setScale();
-        ultraWide.fullscreenSet();
-        ultraWide.createCSS();
+        window.requestAnimationFrame(function() {
+            ultraWide.setScale();
+            ultraWide.fullscreenSet();
+            ultraWide.createCSS();
+        });
     });
 
     $(document).on('keydown', null, 'alt+ctrl+c', function(event) {
