@@ -13,17 +13,26 @@
     ],
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
-            "js": ["Jquery/jquery-2.1.3.min.js","Jquery/jquery.hotkeys.js","Jquery/jquery.fullscreen.js","js/UltraWide.js"]
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "Jquery/jquery-2.1.3.min.js",
+                "Jquery/jquery.hotkeys.js",
+                "Jquery/jquery.fullscreen.js",
+                "js/requestAnimationFrameShim.js",
+                "js/UltraWide.js"
+            ]
         }
     ],
     "background": {
-        "scripts": ["js/background.js"]
+        "scripts": [
+            "js/background.js"
+        ]
     },
     "browser_action": {
         "default_icon": "images/icon.png",
         "default_title": "UltraWide Video",
-        "default_popup":"html/popup.html"
+        "default_popup": "html/popup.html"
     }
-
 }
