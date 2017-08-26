@@ -1,0 +1,103 @@
+html {
+	box-sizing:border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+body {
+	min-width:340px;
+	line-height:1.4;
+	font-family:sans-serif;
+	color:#333;
+	padding:20px;
+	font-size:16px;
+}
+header {
+	box-sizing:content-box;
+	height:38px;
+	margin-bottom:20px;
+	padding-bottom:20px;
+	border-bottom:1px solid rgba(0, 0, 0, 0.1);
+}
+.title {
+	line-height:40px;
+	float:right;
+	text-transform:uppercase;
+	font-size:18px;
+	margin-top:0;
+}
+.logo {
+	float:left;
+	max-height:40px;
+	vertical-align:middle;
+}
+.modes div {
+	display:block;
+	margin-bottom:10px;
+}
+.modes input[type="radio"] {
+	display:none;
+}
+.modes input[type="radio"]:checked + label {
+	border:1px solid rgba(52, 152, 219, 0.5);
+	background:rgba(52, 152, 219, 0.3);
+}
+.modes input[type="radio"]:checked + label .desc {
+	color:rgba(52, 152, 219, 0.8);
+}
+.modes label {
+	padding:10px;
+	border:1px solid rgba(0, 0, 0, 0.2);
+	width:100%;
+	display:block;
+	cursor:pointer;
+}
+.desc {
+	display:block;
+	color:rgba(0, 0, 0, 0.4);
+	font-size:13px;
+}
+a {
+	color:rgba(52, 152, 219, 0.8);
+	text-decoration:none;
+}
+a:hover, a:active, a:focus {
+	color:rgba(52, 152, 219, 1);
+}
+#helpShow {
+	float:right;
+	font-size:12px;
+}
+#helpHide {
+	position:absolute;
+	bottom:20px;
+	right:20px;
+	font-size:12px;
+}
+#help {
+	display:none;
+	position:absolute;
+	top:0; left:0; right:0; bottom:0;
+	background:white;
+	padding:20px;
+	margin:20px;
+	border:1px solid rgba(0, 0, 0, 0.2);
+	box-shadow:0px 0px 4px 2px rgba(0, 0, 0, 0.1);
+}
+#help.is-active {
+	display:block;
+}
+.attribution {
+	padding-top:10px;
+	margin-top:10px;
+	border-top:1px solid rgba(0, 0, 0, 0.1);
+}
+.attribution p {
+	margin:0 0 5px 0;
+}
+.clearfix:before, .clearfix:after {
+	content:" "; display:table;
+}
+.clearfix:after {
+	clear:both;
+}
