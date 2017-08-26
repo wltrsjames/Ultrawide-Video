@@ -1,29 +1,29 @@
 {
-    "name": "UltraWide Video",
-    "version": "1.7",
-    "manifest_version": 2,
-    "description": "Allows wider than average screens (eg.21:9) to play online video content and fit the screen properly in fullscreen mode.",
-    "icons": {
-        "128": "images/icon.png"
-    },
-    "permissions": [
-        "tabs",
-        "storage",
-        "notifications"
-    ],
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["Jquery/jquery-2.1.3.min.js","Jquery/jquery.hotkeys.js","Jquery/jquery.fullscreen.js","js/UltraWide.js"]
-        }
-    ],
-    "background": {
-        "scripts": ["js/background.js"]
-    },
-    "browser_action": {
-        "default_icon": "images/icon.png",
-        "default_title": "UltraWide Video",
-        "default_popup":"client/popup.html"
-    }
-
+	"manifest_version":2,
+	"name":"UltraWide Video",
+	"version":"1.7.5",
+	"description":"Allows wider than average screens (eg.21:9) to play online video content and fit the screen properly in fullscreen mode.",
+	"icons": {
+		"128":"images/icon.png"
+	},
+	"permissions": [
+		"tabs",
+		"storage",
+		"notifications"
+	],
+	"content_scripts": [
+		{
+			"matches":["<all_urls>"],
+			"js":["js/UltraWide.js"],
+			"all_frames":true
+		}
+	],
+	"background": {
+		"scripts": ["js/background.js"]
+	},
+	"browser_action": {
+		"default_icon":"images/icon.png",
+		"default_title":"UltraWide Video",
+		"default_popup":"client/popup.html"
+	}
 }

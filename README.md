@@ -1,12 +1,13 @@
-**Version 1.6**
+**Version 1.7**
 **New Features:**
-- Aspect Ratio mode
--Reliability overhaul
+- Force crop and aspect ratio modes for 4:3 videos on 16:9 displays
+- Multiscreen reliability improvements
 
 **Coming soon:**
 - ability to scale video as well as crop ✓
-- make UltraWideo video work with any html5 video player [Seems to workl with most non iframe and non webm players]
+- Works with any HTML5 player (Including iFrame & WebM) ✓
 - Firefox support
-- Better Icon
+- Better Icon ✓
+- Support for Flash Player content possible? Maybe override Flash's native fullscreen method?
 
 **please leave feedback**
