@@ -1,14 +1,12 @@
 "use strict";
 
-function addClass(c) {
-	const v = document.getElementsByTagName('video');
+function addClass(v,c) {
 	for(var i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; cl.add(c);
 		console.log("[UltraWide] addClass",c,v[i]);
 	}
 }
-function remClass(c) {
-	const v = document.getElementsByTagName('video');
+function remClass(v,c) {
 	for(var i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; if(cl.contains(c)) {
 			cl.remove(c); console.log("[UltraWide] remClass",c,v[i]);
@@ -28,40 +26,40 @@ UltraWide.prototype.update = function() {
 	this.styles.innerHTML = ".extraClassAspect { -webkit-transform:scaleX("+this.scale+")!important; }"
 	+".extraClassCrop { -webkit-transform:scale("+this.scale+")!important; }";
 	
-	//Update classes:
-	const fullscreen = document.webkitIsFullScreen;
+	//Update Classes:
+	const fullscreen = document.webkitIsFullScreen, v = document.getElementsByTagName('video');
 	console.log("[UltraWide] Page Update", this.mode, this.scale, fullscreen);
-	switch(this.mode) {
+	if(v.length) switch(this.mode) {
 	case 0: //Disabled
-		remClass('extraClassAspect');
-		remClass('extraClassCrop');
+		remClass(v,'extraClassAspect');
+		remClass(v,'extraClassCrop');
 	break; case 1: //Aspect
 		if(fullscreen && this.scale > 1) {
-			addClass('extraClassAspect');
-			remClass('extraClassCrop');
+			addClass(v,'extraClassAspect');
+			remClass(v,'extraClassCrop');
 		} else {
-			remClass('extraClassAspect');
-			remClass('extraClassCrop');
+			remClass(v,'extraClassAspect');
+			remClass(v,'extraClassCrop');
 		}
 	break; case 2: //Crop
 		if(fullscreen && this.scale > 1) {
-			addClass('extraClassCrop');
-			remClass('extraClassAspect');
+			addClass(v,'extraClassCrop');
+			remClass(v,'extraClassAspect');
 		} else {
-			remClass('extraClassAspect');
-			remClass('extraClassCrop');
+			remClass(v,'extraClassAspect');
+			remClass(v,'extraClassCrop');
 		}
 	break; case 3: //Force Crop
-		addClass('extraClassCrop');
-		remClass('extraClassAspect');
+		addClass(v,'extraClassCrop');
+		remClass(v,'extraClassAspect');
 	break; case 4: //Force Aspect
-		addClass('extraClassAspect');
-		remClass('extraClassCrop');
+		addClass(v,'extraClassAspect');
+		remClass(v,'extraClassCrop');
 	break;
 	}
 	
 	//Update every 12s in fullscreen mode:
-	if(fullscreen && this.mode && document.getElementsByTagName('video').length > 0) {
+	if(fullscreen && this.mode && v.length) {
 		if(this.timer != null) clearTimeout(this.timer);
 		this.timer = setTimeout(function() { this.update(); this.timer = null; }.bind(this), 12000);
 	}
