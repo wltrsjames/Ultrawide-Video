@@ -59,6 +59,12 @@ UltraWide.prototype.update = function() {
 		remClass('extraClassCrop');
 	break;
 	}
+	
+	//Update every 12s in fullscreen mode:
+	if(fullscreen && this.mode && document.getElementsByTagName('video').length > 0) {
+		if(this.timer != null) clearTimeout(this.timer);
+		this.timer = setTimeout(function() { this.update(); this.timer = null; }.bind(this), 12000);
+	}
 }
 
 function UltraWide() {
