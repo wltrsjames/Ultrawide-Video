@@ -28,7 +28,12 @@ UltraWide.prototype.update = function() {
 	+".extraClassCrop { -webkit-transform:scale("+this.scale+")!important; }";
 	
 	//Update classes:
-	const fullscreen = document.webkitIsFullScreen;
+	var fullscreen = document.webkitIsFullScreen;
+	//Detect F11 fullscreen mode
+	if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
+		fullscreen = true;
+	}
+
 	console.log("[UltraWide] Page Update", this.mode, this.scale, fullscreen);
 	switch(this.mode) {
 	case 0: //Disabled
