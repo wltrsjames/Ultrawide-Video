@@ -16,11 +16,16 @@ function remClass(c) {
 }
 
 UltraWide.prototype.update = function() {
+    //Get the divisor
+    var divisor = 100; //default
+	if (this.mode == 3) {
+	    divisor = 119; //for netflix
+	}
 	//Calculate scale factor:
 	const aspect = screen.width / screen.height;
 	if(aspect >= 1.88) { //If wider than 16:9 widescreen:
-		const scale = aspect / 1.77; this.scale = Math.round(scale*100)/100;
-	} else if(this.mode == 3 || this.mode == 4) this.scale = 1.33; //Force Modes
+		const scale = aspect / 1.77; this.scale = Math.round(scale*100)/divisor;
+	} else if(this.mode == 4 || this.mode == 5) this.scale = 1.33; //Force Modes
 	else this.scale = 1; //Default
 	
 	//Update Styles:
@@ -48,10 +53,17 @@ UltraWide.prototype.update = function() {
 			remClass('extraClassCrop');
 			remClass('extraClassAspect');
 		}
-	break; case 3: //Force Crop
+	break; case 3: //Netflix-crop
+	    if(fullscreen && this.scale > 1) {
+    	    addClass('extraClassCrop');
+	    } else {
+		    remClass('extraClassCrop');
+		    remClass('extraClassAspect');
+	    }
+	break; case 4: //Force Crop
 		addClass('extraClassCrop');
 		remClass('extraClassAspect');
-	break; case 4: //Force Aspect
+	break; case 5: //Force Aspect
 		addClass('extraClassAspect');
 		remClass('extraClassCrop');
 	break;
@@ -65,7 +77,7 @@ function UltraWide() {
 	}.bind(this));
 	document.addEventListener('keydown', function(e) {
 		if(e.ctrlKey && e.altKey && e.key == 'c') {
-			if(++this.mode > 2) this.mode = 0;
+			if(++this.mode > 3) this.mode = 0;
 			chrome.storage.local.set({'extensionMode':this.mode}, function(){});
 		}
 	}.bind(this));
