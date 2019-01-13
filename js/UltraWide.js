@@ -1,13 +1,13 @@
 "use strict";
 
 function addClass(v,c) {
-	for(var i=0,l=v.length,cl; i<l; i++) {
+	for(let i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; cl.add(c);
 		console.log("[UltraWide] addClass",c,v[i]);
 	}
 }
 function remClass(v,c) {
-	for(var i=0,l=v.length,cl; i<l; i++) {
+	for(let i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; if(cl.contains(c)) {
 			cl.remove(c); console.log("[UltraWide] remClass",c,v[i]);
 		}
@@ -27,14 +27,14 @@ UltraWide.prototype.update = function() {
 	+".extraClassCrop { -webkit-transform:scale("+this.scale+")!important; }";
 	
 	//Update Classes:
-	const fullscreen = document.webkitIsFullScreen, v = document.getElementsByTagName('video');
-	console.log("[UltraWide] Page Update", this.mode, this.scale, fullscreen);
+	const fs = document.webkitIsFullScreen, v = document.getElementsByTagName('video');
+	console.log("[UltraWide] Page Update", this.mode, this.scale, fs);
 	if(v.length) switch(this.mode) {
 	case 0: //Disabled
 		remClass(v,'extraClassAspect');
 		remClass(v,'extraClassCrop');
 	break; case 1: //Aspect
-		if(fullscreen && this.scale > 1) {
+		if(fs && this.scale > 1) {
 			addClass(v,'extraClassAspect');
 			remClass(v,'extraClassCrop');
 		} else {
@@ -42,7 +42,7 @@ UltraWide.prototype.update = function() {
 			remClass(v,'extraClassCrop');
 		}
 	break; case 2: //Crop
-		if(fullscreen && this.scale > 1) {
+		if(fs && this.scale > 1) {
 			addClass(v,'extraClassCrop');
 			remClass(v,'extraClassAspect');
 		} else {
@@ -59,7 +59,7 @@ UltraWide.prototype.update = function() {
 	}
 	
 	//Update every 12s in fullscreen mode:
-	if(fullscreen && this.mode && v.length) {
+	if(fs && this.mode && v.length) {
 		if(this.timer != null) clearTimeout(this.timer);
 		this.timer = setTimeout(function() { this.update(); this.timer = null; }.bind(this), 12000);
 	}
@@ -67,7 +67,7 @@ UltraWide.prototype.update = function() {
 
 function UltraWide() {
 	this.mode = 0;
-	document.addEventListener('webkitfullscreenchange', function(e) {
+	document.addEventListener('fullscreenchange', function(e) {
 		this.update();
 	}.bind(this));
 	document.addEventListener('keydown', function(e) {
@@ -83,7 +83,7 @@ function UltraWide() {
 
 function onLoad() {
 	if(!document.body) return;
-	const ultrawide = new UltraWide();
+	const ultrawide = window.ultrawideExt = new UltraWide();
 	chrome.storage.local.get('extensionMode', function(status) {
 		ultrawide.mode = status.extensionMode;
 		if(status.extensionMode != 0) ultrawide.update();
