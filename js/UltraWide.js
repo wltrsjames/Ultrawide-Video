@@ -3,13 +3,13 @@
 function addClass(v,c) {
 	for(let i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; cl.add(c);
-		console.log("[UltraWide] addClass",c,v[i]);
+		//console.log("[UltraWide] addClass",c,v[i]);
 	}
 }
 function remClass(v,c) {
 	for(let i=0,l=v.length,cl; i<l; i++) {
 		cl = v[i].classList; if(cl.contains(c)) {
-			cl.remove(c); console.log("[UltraWide] remClass",c,v[i]);
+			cl.remove(c); //console.log("[UltraWide] remClass",c,v[i]);
 		}
 	}
 }
@@ -28,7 +28,7 @@ UltraWide.prototype.update = function() {
 	
 	//Update Classes:
 	const fs = document.webkitIsFullScreen, v = document.getElementsByTagName('video');
-	console.log("[UltraWide] Page Update", this.mode, this.scale, fs);
+	//console.log("[UltraWide] Page Update", this.mode, this.scale, fs);
 	if(v.length) switch(this.mode) {
 	case 0: //Disabled
 		remClass(v,'extraClassAspect');
@@ -73,7 +73,7 @@ function UltraWide() {
 	document.addEventListener('keydown', function(e) {
 		if(e.ctrlKey && e.altKey && e.key == 'c') {
 			if(++this.mode > 2) this.mode = 0;
-			console.log("[UltraWide] Detected CTRL+ALT+C","Mode "+this.mode);
+			//console.log("[UltraWide] Detected CTRL+ALT+C","Mode "+this.mode);
 			chrome.storage.local.set({'extensionMode':this.mode}, function(){});
 		}
 	}.bind(this));
@@ -83,7 +83,7 @@ function UltraWide() {
 
 function onLoad() {
 	if(!document.body) return;
-	const ultrawide = window.ultrawideExt = new UltraWide();
+	const ultrawide = new UltraWide();
 	chrome.storage.local.get('extensionMode', function(status) {
 		ultrawide.mode = status.extensionMode;
 		if(status.extensionMode != 0) ultrawide.update();
