@@ -16,11 +16,10 @@ function remClass(v,c) {
 
 UltraWide.prototype.update = function() {
 	//Calculate scale factor:
-	const aspect = screen.width / screen.height;
-	if(aspect >= 1.88) { //If wider than 16:9 widescreen:
-		const scale = aspect / 1.77; this.scale = Math.round(scale*100)/100;
-	} else if(this.mode == 3 || this.mode == 4) this.scale = 1.33; //Force Modes
-	else this.scale = 1; //Default
+	if(this.mode == 3 || this.mode == 4) this.scale = 1.33; //Force Modes
+	else if(screen.width / screen.height > 1.8) { //If wider than 16:9 widescreen:
+		const scale = screen.width / 1920; this.scale = Math.round(scale*100)/100;
+	} else this.scale = 1; //Default
 	
 	//Update Styles:
 	this.styles.innerHTML = ".extraClassAspect { -webkit-transform:scaleX("+this.scale+")!important; }"
@@ -61,7 +60,7 @@ UltraWide.prototype.update = function() {
 	//Update every 12s in fullscreen mode:
 	if(fs && this.mode && v.length) {
 		if(this.timer != null) clearTimeout(this.timer);
-		this.timer = setTimeout(function() { this.update(); this.timer = null; }.bind(this), 12000);
+		this.timer = setTimeout(function() { this.timer = null; this.update(); }.bind(this), 12000);
 	}
 }
 
