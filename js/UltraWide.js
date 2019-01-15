@@ -17,13 +17,12 @@ function remClass(v,c) {
 UltraWide.prototype.update = function() {
 	//Calculate scale factor:
 	if(this.mode == 3 || this.mode == 4) this.scale = 1.33; //Force Modes
-	else if(screen.width / screen.height > 1.8) { //If wider than 16:9 widescreen:
-		const scale = screen.width / 1920; this.scale = Math.round(scale*1000)/1000;
-	} else this.scale = 1; //Default
+	else if(screen.width / screen.height > 1.8) this.scale = screen.width / 1920; //If UltraWide
+	else this.scale = 1; //Default
 	
 	//Update Styles:
-	this.styles.innerHTML = ".extraClassAspect { -webkit-transform:scaleX("+this.scale+")!important; }"
-	+".extraClassCrop { -webkit-transform:scale("+this.scale+")!important; }";
+	this.styles.innerHTML = ".extraClassAspect { -webkit-transform:scaleX("+this.scale+")!important; }\
+	.extraClassCrop { -webkit-transform:scale("+this.scale+")!important; }";
 	
 	//Update Classes:
 	const fs = document.webkitIsFullScreen, v = document.getElementsByTagName('video');
