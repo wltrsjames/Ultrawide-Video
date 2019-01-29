@@ -76,11 +76,11 @@ function UltraWide() {
 		}
 	}.bind(this));
 	this.styles = document.createElement('style');
-	document.body.appendChild(this.styles);
+	document.head.appendChild(this.styles);
 }
 
 function onLoad() {
-	if(!document.body) return;
+	if(!document.head) return;
 	const ultrawide = new UltraWide();
 	chrome.storage.local.get('extensionMode', function(status) {
 		ultrawide.mode = status.extensionMode;
