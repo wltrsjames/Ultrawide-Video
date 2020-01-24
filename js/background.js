@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(function(details) {
-	var ver = chrome.runtime.getManifest().version;
+	const ver = chrome.runtime.getManifest().version;
 	if(details.reason == 'update') {
 		chrome.notifications.create(null, {
 			type:'basic',

@@ -1,4 +1,4 @@
-var modeMap = {
+let modeMap = {
 	disabled:0, aspect:1, crop:2,
 	forceCrop:3, forceAspect:4
 };
@@ -7,11 +7,11 @@ window.onload = function() {
 	const modes = modesSel.children;
 	
 	//Set active mode
-	for(var i=0,l=modes.length; i<l; i++) modes[i].onclick = onModeClick;
+	for(let i=0,l=modes.length; i<l; i++) modes[i].onclick = onModeClick;
 	
 	//Get current active mode
 	chrome.storage.local.get('extensionMode', function(results) {
-		var mode = Object.keys(modeMap)[results.extensionMode];
+		let mode = Object.keys(modeMap)[results.extensionMode];
 		for(let i=0,l=modes.length,inp; i<l; i++) {
 			inp = modes[i].children[0];
 			if(inp.id == mode) { inp.checked = true; break; }
