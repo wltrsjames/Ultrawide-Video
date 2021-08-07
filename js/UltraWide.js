@@ -93,5 +93,7 @@ function onLoad() {
 	console.info("UltraWide Extension Loaded!");
 }
 
+
+
 if(document.readyState == 'complete') onLoad();
 else window.addEventListener('load', onLoad);

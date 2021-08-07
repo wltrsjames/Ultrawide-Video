@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
 			type:'basic',
 			iconUrl:"images/icon.png",
 			title:"Ultrawide Video updated",
-			message:"Update log: Version "+ver+" added FORCE modes for 4:3 videos on 16:9 screens; Removed console logs; multiscreen stability",
+			message:"Update log: Version "+ver+" we're back!!! (updates coming soon)",
 		}, function(updateNotificationId) {
 			chrome.notifications.onClicked.addListener(function(notificationId) {
 				if(notificationId === updateNotificationId) {
