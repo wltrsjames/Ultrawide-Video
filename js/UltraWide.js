@@ -64,7 +64,9 @@ function UltraWide() {
 		this.update();
 	}.bind(this));
 	document.addEventListener('keydown', function(e) {
-		if(e.ctrlKey && e.altKey && e.key == 'c') {
+		if( (e.ctrlKey && e.altKey && e.key == 'c')	// windows
+			|| (e.ctrlKey && e.metaKey && e.key == 'c')	// mac
+			) {
 			if(++this.mode > 2) this.mode = 0;
 			chrome.storage.local.set({'extensionMode':this.mode}, function(){});
 		}
